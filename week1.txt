@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h> // Include stdlib.h for compatibility
+
+void main() {
+    int a[20], i, j, k, n, c = 0, pos = 0; // Increase array size to prevent overflow
+    printf("Enter the number of bits: \n");
+    scanf("%d", &n);
+    printf("Enter bits: \n");
+    for(i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+    for(i = 0; i < n; i++) {
+        if(a[i] == 1) {
+            c++;
+            if(c == 5) {
+                pos = i + 1;
+                c = 0;
+                for(j = n; j >= pos; j--) {
+                    a[j + 1] = a[j];
+                }
+                a[pos] = 0;
+                n = n + 1;
+            }
+        } else {
+            c = 0;
+        }
+    }
+    printf("Data after stuffing: \n");
+    printf("01111110"); // Start delimiter
+    for(i = 0; i < n; i++) {
+        printf("%d", a[i]);
+    }
+    printf("01111110"); // End delimiter
+    getch();
+}
